@@ -1,9 +1,16 @@
+#include <Valkron.hpp>
 
-namespace Valkron{
-    __declspec(dllimport) void Print();
-}
+class Sandbox : public Valkron::Application{
+public:
+    Sandbox(){
+        // Constructor implementation
+    }
 
-int main(){
-    Valkron::Print();
-    return 0;
+    ~Sandbox(){
+        // Destructor implementation
+    }
+};
+
+Valkron::Application *Valkron::CreateApplication(){
+    return new Sandbox();
 }

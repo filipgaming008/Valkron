@@ -31,10 +31,11 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Sandbox/include
 )
 
-
 # add subdirectory for the Valkron library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Valkron ${CMAKE_CURRENT_BINARY_DIR}/Valkron)
 
+# Define macros for the project
+target_compile_definitions(Valkron PUBLIC VLKR_PLATFORM_WINDOWS VLKR_BUILD_DLL)
 
 # add source, header and resource files
 file(GLOB PROJECT_HEADERS
@@ -50,8 +51,11 @@ source_group("include" FILES ${PROJECT_HEADERS})
 source_group("src" FILES ${PROJECT_SOURCES})
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS})
-target_link_libraries(${PROJECT_NAME} Valkron)
+target_link_libraries(${PROJECT_NAME} PRIVATE Valkron)
 
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/Valkron/src
+)
 
 # Set the output directory for the executable
 set_target_properties(${PROJECT_NAME} PROPERTIES

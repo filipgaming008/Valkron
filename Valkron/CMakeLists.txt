@@ -28,25 +28,23 @@ endif()
 
 # include directories
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron
 )
-
 
 # add source, header and resource files
 file(GLOB PROJECT_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.hpp
 )
 file(GLOB PROJECT_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.c
 )
 
 source_group("include" FILES ${PROJECT_HEADERS})
 source_group("src" FILES ${PROJECT_SOURCES})
 
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES} ${PROJECT_HEADERS})
-
 
 # Set the output directory for the library
 set_target_properties(${PROJECT_NAME} PROPERTIES
