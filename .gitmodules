@@ -1,0 +1,3 @@
+[submodule "Valkron/vendor/spdlog"]
+	path = Valkron/vendor/spdlog
+	url = https://github.com/gabime/spdlog

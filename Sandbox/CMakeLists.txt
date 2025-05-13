@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31 FATAL_ERROR)
-project(Valkron VERSION 0.0.1)
+project(Sandbox VERSION 0.0.1)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 23)
@@ -20,36 +20,29 @@ else()
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
 endif()
 
-# Add spdlog as a dependency
-add_subdirectory(vendor/spdlog)
-
 # Include directories
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ../Valkron/src
 )
 
 # Source and header files
 file(GLOB PROJECT_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
 )
 file(GLOB PROJECT_SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
 )
 
-# Create the Valkron library
-add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES} ${PROJECT_HEADERS})
+# Create the Sandbox executable
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 
-# Define macros for the library
-target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS VALKRON_BUILD_DLL)
-
-# Link spdlog to Valkron
-target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
+# Link the Valkron Engine
+target_link_libraries(${PROJECT_NAME} PRIVATE Valkron)
 
 # Set output directories
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/lib"
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/src"
 )

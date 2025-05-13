@@ -4,7 +4,7 @@
 
 namespace Valkron{
 
-    class VLKR_API Application{
+    class VALKRON_API Application{
     public:
         Application();
         virtual ~Application();
