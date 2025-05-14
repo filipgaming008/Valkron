@@ -28,12 +28,10 @@ include_directories(
 
 # Source and header files
 file(GLOB PROJECT_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
 )
 file(GLOB PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
 )
 
 # Create the Sandbox executable

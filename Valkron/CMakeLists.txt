@@ -55,7 +55,8 @@ glfw
 
 # Define macros for the library
 if(WIN32)
-    target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS VALKRON_BUILD_DLL)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE VALKRON_BUILD_DLL)
     target_compile_definitions(${PROJECT_NAME} PRIVATE VALKRON_ENABLE_ASSERTS)
 endif()
 
