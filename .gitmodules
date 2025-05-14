@@ -1,6 +1,8 @@
 [submodule "Valkron/vendor/spdlog"]
 	path = Valkron/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+	branch = v1.x
 [submodule "Valkron/vendor/glfw"]
 	path = Valkron/vendor/glfw
 	url = https://github.com/glfw/glfw.git
+	branch = master
