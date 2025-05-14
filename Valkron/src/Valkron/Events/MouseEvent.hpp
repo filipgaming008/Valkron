@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Event.hpp"
+#include "Valkron/Events/Event.hpp"
 
 namespace Valkron{
 

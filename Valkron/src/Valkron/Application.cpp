@@ -1,13 +1,13 @@
 #include "valkron_pch.hpp"
-#include "Application.hpp"
 
-#include "Events/ApplicationEvent.hpp"
-#include "Log.hpp"
+#include "Valkron/Application.hpp"
+
+#include "Valkron/Events/ApplicationEvent.hpp"
 
 namespace Valkron {
 
     Application::Application() {
-        // Constructor implementation
+        m_Window = std::unique_ptr<Window>(Window::Create());
     }
 
     Application::~Application() {
@@ -15,11 +15,8 @@ namespace Valkron {
     }
 
     void Application::Run() {
-        WindowMovedEvent e(100, 200);
-        VALKRON_TRACE(e);
-    
-        while (true) {
-            // Main loop implementation
+        while (m_Running) {
+            m_Window->OnUpdate();
         }
     }
 }

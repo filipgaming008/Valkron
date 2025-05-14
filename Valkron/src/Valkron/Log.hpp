@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Core.hpp"
-#include "Events/Event.hpp"
+#include "Valkron/Core.hpp"
+#include "Valkron/Events/Event.hpp"
 
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"

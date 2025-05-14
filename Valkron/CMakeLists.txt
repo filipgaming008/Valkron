@@ -33,15 +33,17 @@ include_directories(
 file(GLOB PROJECT_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/Events/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Platform/Windows/*hpp
 )
 file(GLOB PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Platform/Windows/*.cpp
 )
 
 # Create the Valkron library
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 
-target_precompile_headers(${PROJECT_NAME} PUBLIC
+target_precompile_headers(${PROJECT_NAME} PRIVATE
 ${CMAKE_CURRENT_SOURCE_DIR}/src/valkron_pch.hpp
 )
 
@@ -54,6 +56,7 @@ glfw
 # Define macros for the library
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS VALKRON_BUILD_DLL)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE VALKRON_ENABLE_ASSERTS)
 endif()
 
 # Set output directories
