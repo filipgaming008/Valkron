@@ -17,35 +17,44 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W3 /MD /O2")
 else()
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0 -Wall -Wextra -Wpedantic")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG") 
 endif()
 
-# Add spdlog as a dependency
+# Add external dependencies
 add_subdirectory(vendor/spdlog)
+add_subdirectory(vendor/glfw)
 
 # Include directories
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Source and header files
 file(GLOB PROJECT_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/Events/*.hpp
 )
 file(GLOB PROJECT_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Valkron/*.c
 )
 
 # Create the Valkron library
 add_library(${PROJECT_NAME} SHARED ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 
-# Define macros for the library
-target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS VALKRON_BUILD_DLL)
+target_precompile_headers(${PROJECT_NAME} PUBLIC
+${CMAKE_CURRENT_SOURCE_DIR}/src/valkron_pch.hpp
+)
 
 # Link spdlog to Valkron
-target_link_libraries(${PROJECT_NAME} PUBLIC spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME}
+spdlog::spdlog
+glfw
+)
+
+# Define macros for the library
+if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC VALKRON_PLATFORM_WINDOWS VALKRON_BUILD_DLL)
+endif()
 
 # Set output directories
 set_target_properties(${PROJECT_NAME} PROPERTIES

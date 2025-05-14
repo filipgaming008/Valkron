@@ -12,7 +12,6 @@ namespace Valkron{
         void Run();
     };
 
-
     // To be defined in CLIENT
     Application *CreateApplication();
 }

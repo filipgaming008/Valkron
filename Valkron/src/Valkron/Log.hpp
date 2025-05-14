@@ -1,8 +1,10 @@
 #pragma once
 
-#include <memory>
 #include "Core.hpp"
+#include "Events/Event.hpp"
+
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace Valkron{
     class VALKRON_API Log{
@@ -31,3 +33,8 @@ namespace Valkron{
 #define VALKRON_WARN(...) ::Valkron::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define VALKRON_ERROR(...) ::Valkron::Log::GetClientLogger()->error(__VA_ARGS__)
 #define VALKRON_FATAL(...) ::Valkron::Log::GetClientLogger()->fatal(__VA_ARGS__)
+
+// Enable spdlog/fmt formatting for all Valkron::Event-derived types
+#include <type_traits>
+template<typename T>
+struct fmt::formatter<T, char, std::enable_if_t<std::is_base_of<Valkron::Event, T>::value, void>> : fmt::ostream_formatter {};

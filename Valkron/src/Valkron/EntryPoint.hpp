@@ -8,7 +8,7 @@ int main(int argc, char** argv){
     
     Valkron::Log::Init();
     VALKRON_CORE_WARN("Initialized Log!");
-    VALKRON_INFO("Hello from Valkron!");
+    VALKRON_INFO("Hello!");
 
     auto app = Valkron::CreateApplication();
     app->Run();
