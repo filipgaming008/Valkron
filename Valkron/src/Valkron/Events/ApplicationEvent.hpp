@@ -6,7 +6,7 @@ namespace Valkron {
 
     class VALKRON_API WindowCloseEvent : public Event{
     public:
-        WindowCloseEvent() {}
+        WindowCloseEvent(){}
 
         EVENT_CLASS_TYPE(WindowClose)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
