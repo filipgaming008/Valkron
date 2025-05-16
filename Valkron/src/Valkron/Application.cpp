@@ -17,6 +17,9 @@ namespace Valkron {
 
     void Application::Run() {
         while (m_Running) {
+            for (Layer* layer : m_LayerStack) {
+                layer->OnUpdate();
+            }
             m_Window->OnUpdate();
         }
     }
@@ -24,8 +27,13 @@ namespace Valkron {
     void Application::OnEvent(Event& e) {
         EventDispatcher dispatcher(e);
         dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
-    
-        VALKRON_CORE_TRACE("{0}", e.ToString());
+
+        for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
+            (*--it)->OnEvent(e);
+            if (e.Handled()) {
+                break;
+            }
+        }
     }
 
     bool Application::OnWindowClose(WindowCloseEvent& e){
